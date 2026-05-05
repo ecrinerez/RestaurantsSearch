@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    container_name: restaurants_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: your_password_here 
+      POSTGRES_DB: RestaurantsSearchDb
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: restaurants_backend
+    ports:
+      - "5233:80" 
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=RestaurantsSearchDb;Username=postgres;Password=your_password_here
+    depends_on:
+      - db

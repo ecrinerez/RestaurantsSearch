@@ -1,0 +1,8 @@
+namespace RestaurantsSearch.Models
+{
+    public enum UserRole
+    {
+        Customer = 0,
+        Manager = 1
+    }
+}

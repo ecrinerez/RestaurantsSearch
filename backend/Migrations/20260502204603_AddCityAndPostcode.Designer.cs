@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using RestaurantSearch.Datas;
+using RestaurantsSearch.Datas;
 
 #nullable disable
 
-namespace RestaurantSearch.Migrations
+namespace RestaurantsSearch.Migrations
 {
-    [DbContext(typeof(RestaurantDbContext))]
-    [Migration("20260213190036_mig_init")]
-    partial class mig_init
+    [DbContext(typeof(RestaurantsDbContext))]
+    [Migration("20260502204603_AddCityAndPostcode")]
+    partial class AddCityAndPostcode
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace RestaurantSearch.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("RestaurantSearch.Models.Restaurant", b =>
+            modelBuilder.Entity("RestaurantsSearch.Models.Restaurants", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,6 +34,11 @@ namespace RestaurantSearch.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Cuisine")
@@ -42,9 +47,14 @@ namespace RestaurantSearch.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Postcode")
                         .IsRequired()
                         .HasColumnType("text");
 
