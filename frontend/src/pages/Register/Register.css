@@ -1,0 +1,72 @@
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 20px;
+}
+
+.register-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 450px;
+}
+
+.register-header h1 {
+  margin: 0 0 25px 0;
+  font-size: 28px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+.form-group input {
+  padding: 12px 16px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background-color: #fdfdfd;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #881A24;
+}
+
+.register-submit-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #881A24;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+}
+
+.signin-link {
+  color: #881A24;
+  font-weight: 700;
+  text-decoration: none;
+}

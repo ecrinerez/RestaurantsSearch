@@ -1,0 +1,33 @@
+.auth-toggle-container {
+  display: flex;
+  background-color: #f5f5f5;
+  padding: 5px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.toggle-btn {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: transparent;
+  font-weight: 600;
+  color: #777;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.toggle-btn.active {
+  background-color: white;
+  color: #881A24; /* Görseldeki bordo tonu */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.icon {
+  font-size: 1.1rem;
+}

@@ -1,0 +1,114 @@
+.m-res-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.m-card-img {
+  height: 200px; 
+  width: 100%;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.m-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.m-card-content {
+  padding: 20px; 
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.m-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.m-card-header h3 {
+  margin: 0;
+  font-size: 18px; 
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+.m-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+  white-space: nowrap;
+}
+
+.m-card-cuisine {
+  color: #777;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m-card-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;
+  font-size: 13px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.m-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.m-btn-edit, .m-btn-delete {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.m-btn-edit {
+  background: white;
+  border: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.m-btn-delete {
+  background: #801818; 
+  border: 1px solid #801818; 
+  color: white;
+}
+
+.m-btn-edit:hover {
+  background: #f5f5f5;
+}
+
+.m-btn-delete:hover {
+  opacity: 0.9;
+}
