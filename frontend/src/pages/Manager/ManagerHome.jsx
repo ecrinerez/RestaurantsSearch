@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Plus } from 'lucide-react';
 import Navbar from '../../components/Navbar/Navbar';
 import ManagerRestaurantCard from '../../components/Manager/ManagerRestaurantCard';
 import AddEditModal from '../../components/Manager/AddEditModal';
 import DeleteModal from '../../components/Manager/DeleteModal';
-import { useRestaurants } from '../../context/RestaurantContext';
+import { useProfile } from '../../context/ProfileContext';
 import './ManagerHome.css';
 
 const ManagerHome = () => {
-  const { restaurants, addRestaurant, updateRestaurant, deleteRestaurant } = useRestaurants();
+  const { user } = useProfile();
+  
+  const [restaurants, setRestaurants] = useState(() => {
+    if (user?.id) {
+      const savedRestaurants = localStorage.getItem(`tf_manager_restaurants_${user.id}`);
+      if (savedRestaurants) {
+        return JSON.parse(savedRestaurants);
+      }
+    }
+    return [];
+  });
+
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [selectedRes, setSelectedRes] = useState(null);
+
+  useEffect(() => {
+    if (user?.id) {
+      localStorage.setItem(`tf_manager_restaurants_${user.id}`, JSON.stringify(restaurants));
+    }
+  }, [restaurants, user]);
 
   const filtered = restaurants.filter(r => 
     r.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -20,15 +37,15 @@ const ManagerHome = () => {
 
   const handleSave = (formData) => {
     if (selectedRes) {
-      updateRestaurant(selectedRes.id, formData);
+      setRestaurants(prev => prev.map(r => r.id === selectedRes.id ? { ...formData, id: selectedRes.id } : r));
     } else {
-      addRestaurant(formData);
+      setRestaurants(prev => [...prev, { ...formData, id: Date.now() }]);
     }
     setIsModalOpen(false);
   };
 
   const handleDelete = () => {
-    deleteRestaurant(selectedRes.id);
+    setRestaurants(prev => prev.filter(r => r.id !== selectedRes.id));
     setIsDeleteOpen(false);
   };
 

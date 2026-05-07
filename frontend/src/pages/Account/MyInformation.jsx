@@ -31,7 +31,7 @@ const MyInformation = () => {
                 <User size={18} className="input-icon" />
                 <input 
                   type="text" 
-                  value={`${formData.firstName} ${formData.lastName}`.trim()}
+                  value={`${formData.firstName || ''} ${formData.lastName || ''}`.trim()}
                   onChange={(e) => {
                     const parts = e.target.value.split(' ');
                     const first = parts[0] || '';
@@ -49,7 +49,7 @@ const MyInformation = () => {
                 <Mail size={18} className="input-icon" />
                 <input 
                   type="email" 
-                  value={formData.email}
+                  value={formData.email || ''}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                   placeholder="example@email.com"
                 />
@@ -63,7 +63,7 @@ const MyInformation = () => {
                   <Phone size={18} className="input-icon" />
                   <input 
                     type="tel" 
-                    value={formData.phone}
+                    value={formData.phone || ''}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     placeholder="+90 5XX XXX XX XX"
                   />
@@ -76,7 +76,7 @@ const MyInformation = () => {
                   <Calendar size={18} className="input-icon" />
                   <input 
                     type="date" 
-                    value={formData.birthDate}
+                    value={formData.birthDate || ''}
                     onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
                   />
                 </div>

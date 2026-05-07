@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, Heart, User, ChevronDown } from 'lucide-react';
+import { useProfile } from '../../context/ProfileContext';
 import './Navbar.css';
 
 const Navbar = ({ onSearch, isManager = false }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { clearSession } = useProfile();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearSession();
+    setIsDropdownOpen(false);
+    navigate('/');
+  };
 
   return (
     <nav className="main-navbar">
       <div className="nav-left-section">
         <div className="nav-logo">
-          <Link to={isManager ? "/manager" : "/"} className="logo-link">
+          <Link to={isManager ? "/manager" : "/home"} className="logo-link">
             Taste <span>Finder</span>
           </Link>
         </div>
@@ -57,7 +66,7 @@ const Navbar = ({ onSearch, isManager = false }) => {
                 My Information
               </Link>
               <hr />
-              <button className="dropdown-option logout-option" onClick={() => setIsDropdownOpen(false)}>
+              <button className="dropdown-option logout-option" onClick={handleLogout}>
                 Sign Out
               </button>
             </div>

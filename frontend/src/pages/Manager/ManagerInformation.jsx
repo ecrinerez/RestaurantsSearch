@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Mail, Phone, Calendar, Save, Check } from 'lucide-react';
 import Navbar from '../../components/Navbar/Navbar';
+import { useProfile } from '../../context/ProfileContext';
 import '../Account/Account.css';
 
 const ManagerInformation = () => {
+  const { user, setUser } = useProfile();
+  
   const [formData, setFormData] = useState({
-    fullName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 555 123 4567",
-    birthDate: "01.01.1990"
+    fullName: user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    birthDate: user?.birthDate || ""
   });
 
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        fullName: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+        email: user.email || "",
+        phone: user.phone || "",
+        birthDate: user.birthDate || ""
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +34,20 @@ const ManagerInformation = () => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log("Updated Data:", formData);
+    
+    const nameParts = formData.fullName.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ');
+
+    setUser({
+      ...user,
+      firstName: firstName,
+      lastName: lastName,
+      email: formData.email,
+      phone: formData.phone,
+      birthDate: formData.birthDate
+    });
+
     setIsSaved(true);
     
     setTimeout(() => {
@@ -81,7 +108,7 @@ const ManagerInformation = () => {
                 <div className="input-wrapper">
                   <Calendar className="input-icon" size={20} />
                   <input 
-                    type="text" 
+                    type="date" 
                     name="birthDate"
                     value={formData.birthDate}
                     onChange={handleChange}

@@ -21,12 +21,20 @@ const AddEditModal = ({ data, onClose, onSave }) => {
     name: data?.name || "",
     cuisines: initialCuisine ? [initialCuisine] : [],
     district: initialDistrict,
+    phone: data?.phone || "",
     image: data?.image || ""
   });
 
+  const [error, setError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || formData.cuisines.length === 0 || !formData.district) return;
+    
+    if (!formData.name.trim() || formData.cuisines.length === 0 || !formData.district) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+    
     onSave(formData);
   };
 
@@ -39,13 +47,19 @@ const AddEditModal = ({ data, onClose, onSave }) => {
         </div>
         
         <form className="modal-body" onSubmit={handleSubmit}>
+          {error && (
+            <div className="error-message" style={{ color: '#c62828', backgroundColor: '#ffebee', padding: '10px', borderRadius: '8px', marginBottom: '15px', fontSize: '14px', textAlign: 'center', border: '1px solid #ffcdd2' }}>
+              {error}
+            </div>
+          )}
+
           <div className="form-group">
             <label>Restaurant Name *</label>
             <input 
               type="text" 
               placeholder="Enter name" 
               value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              onChange={(e) => { setFormData({...formData, name: e.target.value}); setError(""); }}
             />
           </div>
 
@@ -53,7 +67,7 @@ const AddEditModal = ({ data, onClose, onSave }) => {
             <label>Cuisine Type *</label>
             <select 
               value={formData.cuisines[0] || ""} 
-              onChange={(e) => setFormData({...formData, cuisines: [e.target.value]})}
+              onChange={(e) => { setFormData({...formData, cuisines: [e.target.value]}); setError(""); }}
             >
               <option value="" disabled>Select Cuisine</option>
               {CUISINES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -71,7 +85,7 @@ const AddEditModal = ({ data, onClose, onSave }) => {
               <label>District *</label>
               <select 
                 value={formData.district} 
-                onChange={(e) => setFormData({...formData, district: e.target.value})}
+                onChange={(e) => { setFormData({...formData, district: e.target.value}); setError(""); }}
               >
                 <option value="" disabled>Select District</option>
                 {districts.map(d => <option key={d} value={d}>{d}</option>)}
@@ -80,8 +94,13 @@ const AddEditModal = ({ data, onClose, onSave }) => {
           </div>
 
           <div className="form-group">
-            <label>Phone *</label>
-            <input type="text" placeholder="0555 000 00 00" />
+            <label>Phone</label>
+            <input 
+              type="text" 
+              placeholder="0555 000 00 00" 
+              value={formData.phone}
+              onChange={(e) => setFormData({...formData, phone: e.target.value})}
+            />
           </div>
 
           <div className="form-group">
